@@ -4,7 +4,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: java_course
+      MYSQL_DATABASE: ponto_inteligente
       MYSQL_USER: user
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
