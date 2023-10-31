@@ -17,52 +17,40 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.joaovitor.javabasecrud.api.entities.Funcionario;
-import com.joaovitor.javabasecrud.api.repositories.FuncionarioRepository;
+import com.joaovitor.javabasecrud.api.entities.Empresa;
+import com.joaovitor.javabasecrud.api.repositories.EmpresaRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles('test')
-public class FuncionarioServiceTest {
+@ActiveProfiles("test")
+public class EmpresaServiceTest {
 
-    @MockBean
-    private FuncionarioRepository FuncionarioRepository;
+	@MockBean
+	private EmpresaRepository empresaRepository;
 
-    @Autowired
-    private FuncionarioService funcionarioService;
+	@Autowired
+	private EmpresaService empresaService;
 
-    @Before
-    public void setUp() throws Exception {
-        BDDMockito.given(this.funcionarioRepository.findByCnpj(Mockito.anyString())).willReturn(new Funcionario());
-        BDDMockito.given(this.funcionarioRepository.save(Mockito.any(Funcionario.class))).willReturn(new Funcionario());
-        BDDMockito.given(this.funcionarioRepository.findByCnpj(Mockito.anyString())).willReturn(new Funcionario());
-        BDDMockito.given(this.funcionarioRepository.save(Mockito.any(Funcionario.class))).willReturn(new Funcionario());
-    }
+	private static final String CNPJ = "51463645000100";
 
-    @Test
-    public void testPersistirFuncionario(){
-        Funcionario funcionario = this.funcionarioService.persistir(new Funcionario());
+	@Before
+	public void setUp() throws Exception {
+		BDDMockito.given(this.empresaRepository.findByCnpj(Mockito.anyString())).willReturn(new Empresa());
+		BDDMockito.given(this.empresaRepository.save(Mockito.any(Empresa.class))).willReturn(new Empresa());
+	}
 
-        assertNotNull(funcionario)
-    }
+	@Test
+	public void testBuscarEmpresaPorCnpj() {
+		Optional<Empresa> empresa = this.empresaService.buscarPorCnpj(CNPJ);
 
-    @Test 
-    public void testBuscarFuncionarioPorId(){
-        Optional<Funcionario> funcionario = this.funcionarioService.buscaPorId(1L);
-        assertTrue(funcionario.isPresent());
-    }
+		assertTrue(empresa.isPresent());
+	}
+	
+	@Test
+	public void testPersistirEmpresa() {
+		Empresa empresa = this.empresaService.persistir(new Empresa());
 
-    @Test
-    public void testBuscarFuncionarioPorEmail(){
-        Optional<Funcionario> funcionario = this.funcionarioSerice.buscarPorEmail("email@email.com");
+		assertNotNull(empresa);
+	}
 
-        assertTrue(funcionario.isPresent());
-    }
-
-    @Test
-    public void testBuscarFuncionarioPorCpf(){
-        Optional<Funcionario> funcionario = this.funcionarioService.buscarPorCpf("24291173474");
-
-        assertTrue(funcionario.isPresent());
-    }
 }
