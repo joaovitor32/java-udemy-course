@@ -10,3 +10,10 @@
 ```
 
 ### You can use mysql workbench or relatives to manage your connections
+
+
+### Run application
+
+```
+mvn spring-boot:run
+```
