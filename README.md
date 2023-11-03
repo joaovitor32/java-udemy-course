@@ -11,6 +11,8 @@
 
 ### You can use mysql workbench or relatives to manage your connections
 
+Change application.properties file to match docker-compose info
+
 
 ### Run application
 
